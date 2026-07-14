@@ -173,10 +173,11 @@ class MainHook : XposedModule() {
                     chain.proceed()
                     try {
                         val ctx = chain.thisObject as? Context ?: return@intercept null
-                        ctx.getSharedPreferences(PREFS, 0).edit().apply {
-                            if (!contains(KEY_PREMIUM)) putBoolean(KEY_PREMIUM, true)
-                            if (!contains(KEY_DEVICE)) putBoolean(KEY_DEVICE, true)
-                        }.apply()
+                        val prefs = ctx.getSharedPreferences(PREFS, 0)
+                        val editor = prefs.edit()
+                        if (!prefs.contains(KEY_PREMIUM)) editor.putBoolean(KEY_PREMIUM, true)
+                        if (!prefs.contains(KEY_DEVICE)) editor.putBoolean(KEY_DEVICE, true)
+                        editor.apply()
                         log(Log.INFO, TAG, "[初始化] 默认开关写入")
                     } catch (_: Exception) {}
                     null
