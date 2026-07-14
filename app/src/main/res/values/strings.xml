@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">南风天气增强</string>
+    <string-array name="xposed_scope">
+        <item>com.skypulse.weather</item>
+    </string-array>
+</resources>
